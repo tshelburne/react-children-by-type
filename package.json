@@ -1,0 +1,25 @@
+{
+  "name": "react-children-by-type",
+  "version": "0.1.0",
+  "description": "Select and render React children by type",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tshelburne/react-children-by-type.git"
+  },
+  "keywords": [
+    "react",
+    "children",
+    "filter",
+    "type"
+  ],
+  "author": "Tim Shelburne <shelburt02@gmail.com> (https://github.com/tshelburne/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tshelburne/react-children-by-type/issues"
+  },
+  "homepage": "https://github.com/tshelburne/react-children-by-type#readme"
+}
