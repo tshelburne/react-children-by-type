@@ -1,18 +1,18 @@
-const React = require(`react`)
+import React from 'react'
 
 function elementHasType(Component) {
 	return (element) => element.type === React.createElement(Component).type
 }
 
-exports.oneByType = function(children, Component) {
+export function oneByType(children, Component) {
 	return React.Children.toArray(children).find(elementHasType(Component))
 }
 
-exports.allByType = function(children, Component) {
+export function allByType(children, Component) {
 	return React.Children.toArray(children).filter(elementHasType(Component))
 }
 
-exports.withoutTypes = function(children, ...Components) {
+export function withoutTypes(children, ...Components) {
 	const types = Components.map((C) => React.createElement(C).type)
 
 	return React.Children.toArray(children).filter(
