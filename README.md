@@ -12,7 +12,7 @@ children of a particular type. This becomes useful in implementing all kinds of
 complex use-cases, like named layouts, tables, tabs and accordions, cards, modals, etc.
 
 Basically, anytime I'm making a component that encourages using specific children,
-I use these utilties. See the example below for a named layout!
+I use these utilities. See the example below for a named layout!
 
 ## Installation
 
@@ -27,6 +27,8 @@ npm install react-children-by-type
 
 import React from 'react'
 import {oneByType, allByType, withoutTypes} from 'react-children-by-type'
+
+import 'golden-layout.scss' // grid / flexbox layout rules
 
 const GoldenLayout = ({children}) => {
   const header = oneByType(children, GoldenLayout.Header)
