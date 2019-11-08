@@ -5,7 +5,7 @@ function elementHasType(Component) {
 }
 
 export function oneByType(children, Component) {
-	return React.Children.toArray(children).find(elementHasType(Component))
+	return React.Children.toArray(children).find(elementHasType(Component)) || null
 }
 
 export function allByType(children, Component) {

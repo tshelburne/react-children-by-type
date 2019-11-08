@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/tshelburne/react-children-by-type#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "clean": "rm -rf dist",
     "build": "babel src --out-dir dist",
     "prepublishOnly": "npm run clean && npm run build"
@@ -31,7 +31,14 @@
   "devDependencies": {
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.0",
-    "@babel/preset-env": "^7.7.1"
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "@babel/register": "^7.7.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "mocha-clean": "^1.0.0",
+    "react": "^16.11.0",
+    "react-test-renderer": "^16.11.0"
   },
   "babel": {
     "presets": [
@@ -40,7 +47,8 @@
         {
           "modules": "auto"
         }
-      ]
+      ],
+      "@babel/preset-react"
     ]
   }
 }
