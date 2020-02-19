@@ -1,7 +1,8 @@
 import React from 'react'
 
 function elementHasType(Component) {
-	return (element) => element.type === React.createElement(Component).type
+	const type = getType(Component)
+	return (element) => element.type === type
 }
 
 export function oneByType(children, Component) {
@@ -13,9 +14,17 @@ export function allByType(children, Component) {
 }
 
 export function withoutTypes(children, ...Components) {
-	const types = Components.map((C) => React.createElement(C).type)
+	const types = Components.map(getType)
 
 	return React.Children.toArray(children).filter(
 		(child) => !types.includes(child.type)
 	)
+}
+
+function getType(Component) {
+	const original = console.error
+	console.error = () => {}
+	const element = React.createElement(Component)
+	console.error = original
+	return element.type
 }
