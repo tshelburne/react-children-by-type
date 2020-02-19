@@ -1,11 +1,25 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {expect} from 'chai'
+import {spy} from 'sinon'
 import {create} from 'react-test-renderer'
 import {oneByType, allByType, withoutTypes} from '../src/index'
 
 const Type1 = ({v}) => <p>{v}</p>
+Type1.propTypes = {
+	v: PropTypes.string.isRequired
+}
 const Type2 = ({v}) => <p>{v}</p>
 const Type3 = ({v}) => <p>{v}</p>
+
+beforeEach(() => {
+	spy(console, `error`)
+})
+
+afterEach(() => {
+	expect(console.error.called).to.be.false
+	console.error.restore()
+})
 
 describe(`#oneByType`, () => {
 	it(`returns a child of the given type`, () => {
@@ -44,14 +58,14 @@ describe(`#allByType`, () => {
 
 describe(`#withoutTypes`, () => {
 	it(`returns all children not of the given types`, () => {
-		const child1 = <Type1 />
+		const child1 = <Type1 v="1" />
 		const child2 = <div />
 		const renderer = create(<div>{child1}<Type2 /><Type3 />{child2}</div>)
 		expect(withoutTypes(renderer.root.props.children, Type2, Type3).map(withoutKey)).to.deep.equal([child1, child2].map(withoutKey))
 	})
 
 	it(`returns an empty array if no children not of the given type exist`, () => {
-		const renderer = create(<div><Type1 /><Type2 /></div>)
+		const renderer = create(<div><Type1 v="1" /><Type2 /></div>)
 		expect(withoutTypes(renderer.root.props.children, Type1, Type2)).to.be.empty
 	})
 })
