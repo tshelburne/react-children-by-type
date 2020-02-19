@@ -1,7 +1,7 @@
 import React from 'react'
 
 function elementHasType(Component) {
-	return (element) => element.type === React.createElement(Component).type
+	return (element) => element.type === React.createElement(Component, element.props).type
 }
 
 export function oneByType(children, Component) {
