@@ -1,6 +1,8 @@
 react-children-by-type
 ======================
 
+[![CircleCI](https://circleci.com/gh/tshelburne/react-children-by-type/tree/master.svg?style=svg)](https://circleci.com/gh/tshelburne/react-children-by-type/tree/master)
+
 Simple utilities for React components to help in creating stricter component APIs.
 
 ## Intention
