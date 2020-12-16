@@ -36,6 +36,13 @@ describe(`#oneByType`, () => {
 		expect(withoutKey(oneByType(renderer.root.props.children, Type1))).to.deep.equal(withoutKey(child1))
 	})
 
+	it(`ignores fragments as if they are invisible`, () => {
+		const child1 = <Type1 v="1" />
+		const child2 = <Type1 v="2" />
+		const renderer = create(<div><React.Fragment>{child1}</React.Fragment>{child2}<Type2 /><div /></div>)
+		expect(withoutKey(oneByType(renderer.root.props.children, Type1))).to.deep.equal(withoutKey(child1))
+	})
+
 	it(`returns null if no child with the given type exists`, () => {
 		const renderer = create(<div><Type2 /><div /></div>)
 		expect(oneByType(renderer.root.props.children, Type1)).to.be.null
@@ -50,6 +57,13 @@ describe(`#allByType`, () => {
 		expect(allByType(renderer.root.props.children, Type1).map(withoutKey)).to.deep.equal([child1, child2].map(withoutKey))
 	})
 
+	it(`ignores fragments as if they are invisible`, () => {
+		const child1 = <Type1 v="1" />
+		const child2 = <Type1 v="2" />
+		const renderer = create(<div><React.Fragment>{child1}<React.Fragment>{child2}<Type2 /></React.Fragment></React.Fragment><div /></div>)
+		expect(allByType(renderer.root.props.children, Type1).map(withoutKey)).to.deep.equal([child1, child2].map(withoutKey))
+	})
+
 	it(`returns an empty array if no children with the given type exist`, () => {
 		const renderer = create(<div><Type2 /><div /></div>)
 		expect(allByType(renderer.root.props.children, Type1)).to.be.empty
@@ -61,6 +75,13 @@ describe(`#withoutTypes`, () => {
 		const child1 = <Type1 v="1" />
 		const child2 = <div />
 		const renderer = create(<div>{child1}<Type2 /><Type3 />{child2}</div>)
+		expect(withoutTypes(renderer.root.props.children, Type2, Type3).map(withoutKey)).to.deep.equal([child1, child2].map(withoutKey))
+	})
+
+	it(`ignores fragments as if they are invisible`, () => {
+		const child1 = <Type1 v="1" />
+		const child2 = <div />
+		const renderer = create(<div><React.Fragment>{child1}<Type2 /></React.Fragment><Type3 />{child2}</div>)
 		expect(withoutTypes(renderer.root.props.children, Type2, Type3).map(withoutKey)).to.deep.equal([child1, child2].map(withoutKey))
 	})
 

@@ -1,24 +1,33 @@
 import React from 'react'
 
-function elementHasType(Component) {
-	const type = getType(Component)
-	return (element) => element.type === type
-}
-
 export function oneByType(children, Component) {
-	return React.Children.toArray(children).find(elementHasType(Component)) || null
+	return getArray(children).find(elementHasType(Component)) || null
 }
 
 export function allByType(children, Component) {
-	return React.Children.toArray(children).filter(elementHasType(Component))
+	return getArray(children).filter(elementHasType(Component))
 }
 
 export function withoutTypes(children, ...Components) {
 	const types = Components.map(getType)
 
-	return React.Children.toArray(children).filter(
+	return getArray(children).filter(
 		(child) => !types.includes(child.type)
 	)
+}
+
+function getArray(children) {
+	const array = React.Children.toArray(children)
+	if (!React.Fragment) return array
+	return array.flatMap((child) => {
+		const isFragment = elementHasType(React.Fragment)(child)
+		return isFragment ? getArray(child.props.children) : child
+	})
+}
+
+function elementHasType(Component) {
+	const type = getType(Component)
+	return (element) => element.type === type
 }
 
 function getType(Component) {
